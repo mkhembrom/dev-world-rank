@@ -42,42 +42,38 @@ export default function WorldTable({}: worldTableProps) {
   if(!mount) return null;
 
   return (  
-    <div className='w-full max-h-[720px] scrollbar overflow-y-scroll relative '>
+    <div className='w-full max-h-[720px] scrollbar overflow-y-scroll overflow-x-hidden relative lg:pl-10 lg:pr-4'>
 
-    <table className='w-full p-2'>
      
-    <tbody className='flex flex-col items-center justify-between w-full bg-pbg'>
-        <tr className={cn('flex items-center justify-between w-full mt-0  sticky top-0 left-0 right-0 z-20 bg-pbg py-4 border-b-2 border-b-sbg')}>
-            <td className='text-stext font-semibold text-start sm:w-[20%] w-[50%]'>Flag</td>
-            <td className='text-stext font-semibold text-start sm:w-[20%] w-[50%]'>Name</td>
-            <td className='text-stext font-semibold text-start hidden sm:block w-[20%]'>Population</td>
-            <td className='text-stext font-semibold text-start hidden sm:block w-[20%]'>Area(km<sup>2</sup>)</td>
-            <td className='text-stext font-semibold text-start hidden sm:block w-[20%]'>Region</td>
-          </tr>
-          {/* <Suspense fallback={<Skeleton count={countriesToShow} />}> */}
+    <div className='flex flex-col items-center justify-between w-full bg-pbg '>
+        <div className={cn('grid grid-cols-5 mt-0 w-full  sticky top-0 left-0 z-20 bg-pbg py-4 border-b-2 border-b-sbg')}>
+            <div className='col-span-1 text-stext font-semibold text-start sm:w-[10%] w-[50%]'>Flag</div>
+            <div className='col-span-1 text-stext font-semibold text-start sm:w-full w-[50%]'>Name</div>
+            <div className='col-span-1 text-stext font-semibold text-start hidden sm:block w-[20%]'>Population</div>
+            <div className='col-span-1 text-stext font-semibold text-start hidden sm:block w-[10%]'>Area(km<sup>2</sup>)</div>
+            <div className='col-span-1 text-stext font-semibold text-start hidden sm:block w-[10%]'>Region</div>
+          </div>
           {
             countriesToShow.map((item: country, index: number) => (
-              <tr 
+              <div 
                 key={index} 
                 onClick={() => router.push(`/${item.name.common}`)}
                 className={
                 cn(
-                  'py-2 flex items-center justify-between w-full text-ptext font-semibold border-none hover:bg-transparent hover:opacity-60 transition-all duration-200 cursor-pointer'
+                  'py-2  grid grid-cols-5 w-full text-ptext font-semibold border-none hover:bg-transparent hover:opacity-60 transition-all duration-200 cursor-pointer'
                   )}>
-                  <td className='text-ptext text-start sm:w-[20%] w-[50%]'  >    
+                  <div className='text-ptext text-start sm:w-full w-[50%]'  >    
                     <Image className='rounded-md object-cover w-[60px] h-[40px]' src={item?.flags?.png} alt={item?.name?.common as string} width={100} height={100} />
-                  </td> 
-                  <td className='text-ptext text-start sm:w-[20%] w-[50%]' >{item?.name?.common}</td> 
-                  <td className='text-ptext text-start  hidden sm:block w-[20%]' >{convertToCommaSeperated(item?.population)}</td> 
-                  <td className='text-ptext text-start  hidden sm:block w-[20%]' >{convertToCommaSeperated(item?.area)}</td> 
-                  <td className='text-ptext text-start  hidden sm:block w-[20%]' >{item?.region}</td> 
-              </tr>         
+                  </div> 
+                  <div className='col-span-1 text-ptext text-start sm:w-full w-[50%]' >{item?.name?.common}</div> 
+                  <div className='col-span-1 text-ptext text-start  hidden sm:block w-[20%]' >{convertToCommaSeperated(item?.population)}</div> 
+                  <div className='col-span-1 text-ptext text-start  hidden sm:block w-[10%]' >{convertToCommaSeperated(item?.area)}</div> 
+                  <div className='col-span-1 text-ptext text-start  hidden sm:block w-[10%]' >{item?.region}</div> 
+              </div>         
             ))
           }
-          {/* </Suspense> */}
-          {/* <Skeleton count={countriesToShow} /> */}
-    </tbody>
-    </table>
+
+    </div>
     </div>
 
   )
