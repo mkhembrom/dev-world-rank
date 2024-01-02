@@ -15,35 +15,38 @@
 export const getCountry = async (slug: string) => {
     const res = await fetch(`https://restcountries.com/v3.1/name/${slug.toLowerCase()}`);
     if(!res.ok)  throw new Error("Failed to fetch");
-    const data = await res.json();
+    const info = await res.json();
+
+
+        const data = info.filter((item: any) => item.name.common.toLowerCase() == slug.toLowerCase());
     
+        const name = data[data.length - 1]?.name?.common as string;
+        const image = data[data.length - 1].flags.png as string;
+        const officialName = data[data.length - 1].name.official as string;
+        const population = data[data.length - 1].population;
+        const area = data[data.length - 1].area;
+        const capital = data[data.length - 1]?.capital[0] as string;
+        const subregion = data[data.length - 1].subregion;
+        const language = Object.values(data[data.length - 1].languages);
+        const currencies = Object.values(data[0].currencies).map((curr: any) => `${curr.symbol} (${curr.name})`).join(', '); // Extract code and name from currencies
+        const continent = data[data.length - 1].continents;
+        const borders = data[data.length - 1].borders;
 
-
-    const name = data[data.length - 1].name.common as string;
-    const image = data[data.length - 1].flags.png as string;
-    const officialName = data[data.length - 1].name.official as string;
-    const population = data[data.length - 1].population;
-    const area = data[data.length - 1].area;
-    const capital = data[data.length - 1]?.capital[0] as string;
-    const subregion = data[data.length - 1].subregion;
-    const language = Object.values(data[data.length - 1].languages);
-    const currencies = [...Object.values(data[data.length - 1].currencies)][0]?.name! as string
-    const continent = data[data.length - 1].continents;
-    const borders = data[data.length - 1].borders;
-    return {
-        name,
-        image,
-        officialName,
-        population,
-        area,
-        capital,
-        subregion,
-        language,
-        currencies,
-        continent,
-        borders
-
-    };
+        return {
+            name,
+            image,
+            officialName,
+            population,
+            area,
+            capital,
+            subregion,
+            language,
+            currencies,
+            continent,
+            borders
+    
+        };
+    
 }
 
 export const codeCountry = async (code: string) => {

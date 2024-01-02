@@ -6,7 +6,6 @@ import { useMount } from '@/lib/mount'
 import { country } from '@/types/types'
 import { useCountryStore } from '@/store/store'
 import Skeleton from './skeleton'
-import { Router } from 'lucide-react'
 import { useRouter } from 'next/navigation'
   
 type worldTableProps = {
@@ -26,7 +25,7 @@ export default function WorldTable({}: worldTableProps) {
   const router = useRouter();
   useEffect(() => {
     const worldData = async () => {
-      const res = await fetch(`https://restcountries.com/v3.1/${independent ? 'independent?status=true' : 'all?fields=region,name,flags,population,area,cca3,unMember'}`);
+      const res = await fetch(`https://restcountries.com/v3.1/${independent ? 'independent?status=true' : 'all?fields=currencies,region,continents,subregion,languages,name,flags,population,area,cca3,unMember,capital,continent,borders'}`);
       const data = await res.json();
       setCountries(data);
     }
@@ -48,14 +47,14 @@ export default function WorldTable({}: worldTableProps) {
     <table className='w-full p-2'>
      
     <tbody className='flex flex-col items-center justify-between w-full bg-pbg'>
-    <tr className={cn('flex items-center justify-between w-full mt-0  sticky top-0 left-0 right-0 z-20 bg-pbg py-4 border-b-2 border-b-sbg')}>
-        <td className='text-stext font-semibold text-start sm:w-[20%] w-[50%]'>Flag</td>
-        <td className='text-stext font-semibold text-start sm:w-[20%] w-[50%]'>Name</td>
-        <td className='text-stext font-semibold text-start hidden sm:block w-[20%]'>Population</td>
-        <td className='text-stext font-semibold text-start hidden sm:block w-[20%]'>Area(km<sup>2</sup>)</td>
-        <td className='text-stext font-semibold text-start hidden sm:block w-[20%]'>Region</td>
-      </tr>
-          <Suspense fallback={<Skeleton count={countriesToShow} />}>
+        <tr className={cn('flex items-center justify-between w-full mt-0  sticky top-0 left-0 right-0 z-20 bg-pbg py-4 border-b-2 border-b-sbg')}>
+            <td className='text-stext font-semibold text-start sm:w-[20%] w-[50%]'>Flag</td>
+            <td className='text-stext font-semibold text-start sm:w-[20%] w-[50%]'>Name</td>
+            <td className='text-stext font-semibold text-start hidden sm:block w-[20%]'>Population</td>
+            <td className='text-stext font-semibold text-start hidden sm:block w-[20%]'>Area(km<sup>2</sup>)</td>
+            <td className='text-stext font-semibold text-start hidden sm:block w-[20%]'>Region</td>
+          </tr>
+          {/* <Suspense fallback={<Skeleton count={countriesToShow} />}> */}
           {
             countriesToShow.map((item: country, index: number) => (
               <tr 
@@ -75,7 +74,7 @@ export default function WorldTable({}: worldTableProps) {
               </tr>         
             ))
           }
-          </Suspense>
+          {/* </Suspense> */}
           {/* <Skeleton count={countriesToShow} /> */}
     </tbody>
     </table>

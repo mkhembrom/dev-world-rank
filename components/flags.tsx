@@ -20,10 +20,10 @@ export default function Flags({code} : { code: string[] }) {
     if(!mount) return null;
 
   return (
-    <Suspense fallback={<>loading...</>}>
+    <>
         {
             filteredData.map((item: country, index: number) => (
-                <div key={index} className='flex flex-col items-start cursor-pointer w-full' onClick={() => router.replace(`/${item.name.common}`)}>
+                <div key={index} className='flex flex-col items-start cursor-pointer ' onClick={() => router.replace(`/${item.name.common}`)}>
 
                 <div  className='w-[70px] h-[55px]'>
                     <Image className='rounded-lg object-contain w-full h-full' src={item.flags.png} alt={item.name.common} width={40} height={20}  />
@@ -32,6 +32,6 @@ export default function Flags({code} : { code: string[] }) {
                 </div>
             ))
         }
-    </Suspense>
+    </>
   )
 }

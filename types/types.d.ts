@@ -5,6 +5,7 @@ export type country = {
     };
     name: {
         common: string,
+        official: string,
     };
     population: number;
     area: number;
@@ -14,3 +15,18 @@ export type country = {
     independent: boolean;
     unMember: boolean;
 }
+
+export type CountryInfo = {
+    name: string;
+    image: string;
+    officialName: string;
+    population: any;
+    area: any;
+    capital: string;
+    subregion: any;
+    language: unknown[];
+    currencies: string;
+    continent: any;
+    borders: any;
+  };
+  
